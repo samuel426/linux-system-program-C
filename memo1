@@ -1,0 +1,2236 @@
+컴파일 할 때
+
+gcc -o tadd tadd.c -pthread
+
+hw02
+
+hw03
+	- mycp.c // Make my own cp program using file I/O system calls
+	- hole.c // Make a big-hole file using creat & lseek system calls
+	- list.c // List a text file with line numbers
+	- tcp1.c // Make a text-copy program using character-at-a-time I/O stream
+	- tcp2.c // Make a text-copy program using line-at-a-time I/O stream
+	- mycp2.c // Make my own cp program using binary I/O stream
+	-  Split a file into two & Merge two files into one using binary I/O stream
+	- merge.c, split.c
+	- conv.c // text파일을 바이너리로 바꾸는거
+	- access.c // 바이너리 파일을 읽어 text로 출력하는거
+	- tab.c // tab을 띄어쓰기 4칸으로 바꾸는 것
+
+hw04
+	- stat.c // 각 파일의 속성에 대한 정보를 보여주는 프로그램.
+	- umask.c // 모든 사용자에게 읽기, 쓰기 권한을 가진 bar라는 파일과 
+		 그룹 및 다른 사용자에 대한 읽기, 쓰기 권한을 제한하는 foo 파일을 생성하는 프로그램
+	- chmod.c // 모든 사용자에게 읽기, 쓰기 권한을 가진 bar라는 파일과
+                 그룹 및 다른 사용자에 대한 읽기, 쓰기 권한을 제한하는 foo 파일의 권한을 바꾸는 프로그램
+	- myln.c // 파일의 링크를 만드는 프로그램
+	- mysln.c // 파일의 심볼릭 링크를 만드는 프로그램
+	- myrm.c // remove 라는 system call을 이용하여 파일을 지우는 프로그램
+	- mymv.c // 파일의 이름을 바꾸는 프로그램
+	- mymd.c // mkdir 라는 system call을 이용하여 디렉토리 만드는 프로그램
+	- myrd.c // rmdir 라는 system call을 이용하여 디렉토리를 지우는 프로그램
+	- myls.c // ls 라는 system call을 c로 만드는 프로그램
+	- mylsr.c // 현재 디렉토리에 있는 파일 이름들을 전부 읽어 출력하는 프로그램 
+	- mycd.c // chdir 라는 system call을 함수를 이용하여 입력한 디렉토리로 이동하는 프로그램
+	- mypwd.c // getcwd 라는 system call을 함수를 이용하여 현재 디렉토리 경로를 출력하는 함수
+	- mylsl.c //현재 디렉토리의 파일 및 디렉토리 정보를
+                 'ls -l' 명령어와 유사한 형식으로 출력하는 프로그램.
+
+hw05
+	- fork.c // fork()를 이용해 자식 프로세스를 생성하고, 
+                 부모와 자식이 서로 독립된 변수 값을 유지하는 것을 보여줌
+	- exit.c // atexit() 함수를 사용해 프로그램 종료 시 실행할 함수를 등록하고, 
+                 종료 시점에 등록한 함수가 호출되는 순서를 보여줌.
+	- wait.c // fork()로 자식 프로세스를 생성하고, 부모 프로세스가 자식 프로세스의 종료를 기다린 후 
+                 종료 상태를 확인하는 예제.
+	- race.c // 입력받은 문자열을 한 글자씩 출력하며, 각 문자 출력 전에 
+                  지연을 추가하는 함수. fork()로 자식 프로세스를 생성하고, 부모와 자식 프로세스가 각각 문자열을 
+                 문자 단위로 출력하는 예제. 
+	- worace.c // fork()로 자식 프로세스를 생성하고, 부모와 자식 프로세스가 각각 문자열을 
+                 문자 단위로 출력하는 예제. wait()를 씀
+	- env.c // 커맨드라인에서 전달된 인수와 시스템의 환경 변수를 출력하는 프로그램.
+	- exec.c // fork()를 사용하여 자식 프로세스를 생성하고, 
+                 execl, execv, execlp를 통해 다른 프로그램을 실행하는 기능.
+	- system.c // system() 함수를 사용하여 외부 시스템 명령어를 실행하고 
+                 그 결과를 확인하는 프로그램.
+	- thread.c // 두 개의 스레드를 생성하여 각각의 메시지를 출력하는 프로그램.
+	- cmd_i.c // 사용자가 입력한 명령어를 수행하는 간단한 인터프리터. DoCmd(): 명령어를 수행하는 함수.
+	- cmd_p.c // 사용자가 입력한 명령어를 별도의 프로세스에서 수행하는 인터프리터. fork()를 사용하여 명령어를 실행하는 새로운 프로세스를 생성.
+	- cmd_t.c // 사용자가 입력한 명령어를 별도의 스레드에서 수행하는 프로그램. pthread_create()를 사용하여 명령어를 실행하는 새로운 스레드를 생성.
+	- mysystem.c // fork(), execv(), waitpid() 사용자가 입력한 명령어를 시스템 호출을 통해 실행하는 함수.
+	- tadd.c // 두 개의 스레드를 생성하여 1부터 100까지의 합을 구함.
+
+
+동적 메모리 할당
+int *p = (int *)malloc(100*sizeof(int));
+
+    int *arr;
+    int n = 5;
+
+    // 정수형 배열을 동적으로 할당
+    arr = (int *)malloc(n * sizeof(int)); // n개의 정수 공간 할당
+    if (arr == NULL) {
+        // 메모리 할당 실패 처리
+        fprintf(stderr, "메모리 할당 실패\n");
+        return 1; // 오류 반환
+    }
+
+    // 배열 사용
+    for (int i = 0; i < n; i++) {
+        arr[i] = i + 1;
+    }
+
+    // 결과 출력
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    // 메모리 해제
+    free(arr); // 동적으로 할당한 메모리 해제
+
+알겠습니다! 수정된 내용으로 다시 정리해드리겠습니다.
+
+---
+
+1. **`scanf(const char *format, ...)`**
+   - **입력 매개변수**: `const char *format`, 추가로 변수 주소를 여러 개 전달 (`int*`, `float*` 등)
+   - **반환 자료형**: `int` (입력받은 항목의 개수를 반환, 실패 시 `EOF` 반환)
+   - **설명**: 다양한 형식의 데이터를 입력받아 지정된 변수에 저장하는 함수.
+
+2. **`getchar()`**
+   - **입력 매개변수**: 없음
+   - **반환 자료형**: `int` (입력된 문자의 ASCII 값 반환, 실패 시 `EOF` 반환)
+   - **설명**: 단일 문자를 입력받아 해당 문자의 ASCII 값을 반환하는 함수.
+
+3. **`putchar(int ch)`**
+   - **입력 매개변수**: `int ch` (출력할 문자 하나의 ASCII 값)
+   - **반환 자료형**: `int` (출력된 문자의 ASCII 값 반환, 실패 시 `EOF` 반환)
+   - **설명**: 전달받은 문자 하나를 콘솔에 출력하는 함수.
+
+4. **`gets(char *str)`** (사용 비추천, `fgets` 사용 권장)
+   - **입력 매개변수**: `char *str` (입력받은 문자열을 저장할 배열의 포인터)
+   - **반환 자료형**: `char*` (입력된 문자열의 시작 주소 반환, 실패 시 `NULL` 반환)
+   - **설명**: 한 줄의 문자열을 입력받아 해당 문자열을 반환하는 함수. (버퍼 오버플로우 문제로 인해 사용 비추천)
+
+5. **`puts(const char *str)`**
+   - **입력 매개변수**: `const char *str` (출력할 문자열)
+   - **반환 자료형**: `int` (출력이 성공하면 양수, 실패 시 `EOF` 반환)
+   - **설명**: 전달받은 문자열을 출력하고 자동으로 줄바꿈(`\n`)을 추가하는 함수.
+
+---
+
+이제 각 함수에 필요한 입력 매개변수를 정확히 표시해 두었습니다.
+
+
+각 함수의 매개변수, 반환 자료형, 포함 헤더 파일을 아래와 같이 정리해드리겠습니다.
+
+---
+
+1. **`fprintf(FILE *stream, const char *format, ...)`**
+   - **입력 매개변수**: `FILE *stream` (출력할 파일 포인터), `const char *format` (출력 형식)
+   - **반환 자료형**: `int` (출력된 문자 수 반환, 실패 시 음수 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 지정한 파일 포인터(`stream`, 예: `stderr`)로 형식에 맞게 출력하는 함수.
+
+2. **`fopen(const char *filename, const char *mode)`**
+   - **입력 매개변수**: `const char *filename` (파일 이름), `const char *mode` (열기 모드)
+   - **반환 자료형**: `FILE*` (파일 포인터 반환, 실패 시 `NULL` 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 파일을 열거나 새로 생성하는 함수. 모드는 `"rb"`, `"wb"` 등으로 설정.
+
+3. **`perror(const char *str)`**
+   - **입력 매개변수**: `const char *str` (오류 메시지 앞에 붙일 문자열)
+   - **반환 자료형**: `void` (반환값 없음)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 최근에 발생한 오류의 설명을 표준 오류로 출력하는 함수.
+
+4. **`exit(int status)`**
+   - **입력 매개변수**: `int status` (종료 상태 코드)
+   - **반환 자료형**: `void` (반환값 없음)
+   - **헤더 파일**: `<stdlib.h>`
+   - **설명**: 프로그램을 종료하는 함수. 상태 코드로 `0`은 성공, `1` 이상은 오류를 나타냄.
+
+5. **`fread(void *buf, size_t size, size_t count, FILE *src)`**
+   - **입력 매개변수**: `void *buf` (데이터 저장 버퍼), `size_t size` (항목 크기), `size_t count` (항목 개수), `FILE *src` (읽을 파일 포인터)
+   - **반환 자료형**: `size_t` (읽은 항목 개수 반환, 실패 시 0 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 파일에서 지정된 크기와 개수만큼 데이터를 읽어 `buf`에 저장하는 함수.
+
+6. **`fwrite(const void *buf, size_t size, size_t count, FILE *dst)`**
+   - **입력 매개변수**: `const void *buf` (쓰기할 데이터 버퍼), `size_t size` (항목 크기), `size_t count` (항목 개수), `FILE *dst` (쓰기할 파일 포인터)
+   - **반환 자료형**: `size_t` (쓰기한 항목 개수 반환, 실패 시 0 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: `buf`의 데이터를 지정된 크기와 개수만큼 파일에 쓰는 함수.
+
+7. **`fclose(FILE *stream)`**
+   - **입력 매개변수**: `FILE *stream` (닫을 파일 포인터)
+   - **반환 자료형**: `int` (성공 시 0, 실패 시 `EOF` 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 파일을 닫아 메모리 누수를 방지하는 함수.
+
+8. **`fseek(FILE *stream, long offset, int whence)`**
+   - **입력 매개변수**: `FILE *stream` (파일 포인터), `long offset` (이동할 위치), `int whence` (기준 위치)
+   - **반환 자료형**: `int` (성공 시 0, 실패 시 `-1` 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 파일 포인터를 `SEEK_SET`, `SEEK_CUR`, `SEEK_END` 기준으로 지정된 위치로 이동하는 함수.
+   -  SEEK_END = 파일 끝으로 이동, 0L은 파일 끝의 오프셋, SEEK_SET = 파일의 시작점으로 이동, 이후 cur 만큼 이동함
+
+9. **`puts(const char *str)`**
+   - **입력 매개변수**: `const char *str` (출력할 문자열)
+   - **반환 자료형**: `int` (출력이 성공하면 양수, 실패 시 `EOF` 반환)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 전달받은 문자열을 출력하고 자동으로 줄바꿈(`\n`)을 추가하는 함수.
+
+10. **`strcpy(char *dest, const char *src)`**
+    - **입력 매개변수**: `char *dest` (복사할 위치), `const char *src` (복사할 문자열)
+    - **반환 자료형**: `char*` (복사된 문자열의 시작 주소 반환)
+    - **헤더 파일**: `<string.h>`
+    - **설명**: `src` 문자열을 `dest`로 복사하는 함수.
+
+11. **`rewind(FILE *stream)`**
+    - **입력 매개변수**: `FILE *stream` (파일 포인터)
+    - **반환 자료형**: `void` (반환값 없음)
+    - **헤더 파일**: `<stdio.h>`
+    - **설명**: 파일 포인터를 파일의 처음으로 되돌리는 함수.
+
+12. **`getchar()`**
+    - **입력 매개변수**: 없음
+    - **반환 자료형**: `int` (입력된 문자의 ASCII 값 반환, 실패 시 `EOF` 반환)
+    - **헤더 파일**: `<stdio.h>`
+    - **설명**: 단일 문자를 입력받아 해당 문자의 ASCII 값을 반환하는 함수.
+
+--- 
+
+각 함수와 매개변수에 대한 설명을 추가하여 정리해드리겠습니다.
+
+---
+
+1. **`open(const char *pathname, int flags, mode_t mode)`**
+   - **입력 매개변수**: 
+     - `const char *pathname` (열 파일의 경로),
+     - `int flags` (파일 열기 모드, 여러 플래그 조합 가능),
+     - `mode_t mode` (새로 생성하는 파일의 권한 설정, 일반적으로 사용).
+   - **반환 자료형**: `int` (파일 디스크립터 반환, 실패 시 `-1` 반환)
+   - **헤더 파일**: `<fcntl.h>`
+   - **설명**: 입력받은 파일을 열고, 지정된 플래그에 따라 처리합니다.
+
+   - **플래그 설명**:
+     - `O_RDONLY`: 읽기 전용 모드로 파일을 엽니다.
+     - `O_WRONLY`: 쓰기 전용 모드로 파일을 엽니다.
+     - `O_CREAT`: 지정된 이름의 파일이 없으면 새로 생성합니다.
+     - `O_TRUNC`: 파일이 이미 존재할 경우 내용을 지우고 처음부터 새로 작성합니다.
+     - **권한 설정**: 파일을 새로 생성할 때 설정할 수 있는 권한으로, 일반적으로 사용되는 값은 `S_IRUSR`, `S_IWUSR` 등입니다.
+     - 0644 -rw-r--r-- 
+
+2. **`perror(const char *str)`**
+   - **입력 매개변수**: `const char *str` (오류 메시지 앞에 붙일 문자열)
+   - **반환 자료형**: `void` (반환값 없음)
+   - **헤더 파일**: `<stdio.h>`
+   - **설명**: 최근에 발생한 오류의 설명을 표준 오류로 출력합니다.
+
+3. **`exit(int status)`**
+   - **입력 매개변수**: `int status` (종료 상태 코드)
+   - **반환 자료형**: `void` (반환값 없음)
+   - **헤더 파일**: `<stdlib.h>`
+   - **설명**: 프로그램을 종료하는 함수로, 상태 코드로 성공은 `0`, 오류는 `1` 이상의 값을 나타냅니다.
+
+4. **`read(int fd, void *buf, size_t count)`**
+   - **입력 매개변수**: 
+     - `int fd` (읽을 파일의 디스크립터),
+     - `void *buf` (읽은 데이터를 저장할 버퍼),
+     - `size_t count` (읽을 바이트 수).
+   - **반환 자료형**: `ssize_t` (실제로 읽은 바이트 수 반환, 실패 시 `-1` 반환)
+   - **헤더 파일**: `<unistd.h>`
+   - **설명**: 지정된 파일에서 데이터를 읽어 `buf`에 저장합니다. `count`만큼의 바이트를 읽습니다.
+
+5. **`write(int fd, const void *buf, size_t count)`**
+   - **입력 매개변수**: 
+     - `int fd` (쓸 파일의 디스크립터),
+     - `const void *buf` (쓸 데이터),
+     - `size_t count` (쓸 바이트 수).
+   - **반환 자료형**: `ssize_t` (실제로 쓴 바이트 수 반환, 실패 시 `-1` 반환)
+   - **헤더 파일**: `<unistd.h>`
+   - **설명**: 지정된 파일에 `buf`의 데이터를 `count`만큼 씁니다.
+
+6. **`close(int fd)`**
+   - **입력 매개변수**: `int fd` (닫을 파일의 디스크립터)
+   - **반환 자료형**: `int` (성공 시 0, 실패 시 `-1` 반환)
+   - **헤더 파일**: `<unistd.h>`
+   - **설명**: 열린 파일을 닫아 메모리 누수를 방지합니다.
+
+---
+
+
+
+
+----------------------------------------------------------------------------------
+중간 기출 문제 
+[1] 다음을 출력시키는 프로그램을 ‘show’를 작성하시오. Source file은 ‘show.c’로 할 것. (20점) [주의사항: loop를 사용해야 함]
+ $ ./show 
+1 2 3 4 5 6 7 8 9 
+1 2 3 4 5 6 7 8 
+1 2 3 4 5 6 7 
+1 2 3 4 5 6 
+1 2 3 4 5 
+1 2 3 4 
+1 2 3  
+1 2  
+1 
+[2] String의 문자를 모두 대문자로 바꾸는 void strupper(char str[]) 함수를 작성하고, 그 예를보이는 프로그램 ‘upper’를 작성할 것. Source file은 ‘upper.c’로 할 것. (20점) 
+$ ./upper  
+HELLO, WORLD! 
+[3] Text file을 입력으로 하여 단어의 수를 출력하는 프로그램 ‘count’를 작성할 것. Source file은 ‘count.c’로 할 것. (20점) 
+$ ./count count.c  
+28 
+[4] File을 삭제하는 프로그램 ‘myrm’을 작성하시오. 이때, 여러 개의 file을 동시에 삭제할 수있어야 한다. Source file은 ‘myrm.c’로 할 것. (20점) 
+[주의사항: source file(*.c)로 삭제하는 command를 실행하지 말 것. 다른 문제의 source file을 삭제하고, 실수했다고 주장하면 안됨. 별도의 directory에서 작업하는 것이 안전함] 
+$ ./myrm *.o 
+
+[5] 현재의 directory에서 file의 크기가 특정 크기 (command-line argument로 주어짐) 이상인 프로그램의 이름을 출력하는 프로그램 ‘size’를 작성하시오. Source file은 ‘size.c’로 할 것. (20점) 
+$ ./size 500  
+size.o  myrm.o  count.o 
+
+여기 각 프로그램을 위한 소스 코드 예시와 설명을 드리겠습니다.
+
+### 1. `show.c`
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 9; i >= 1; i--) {      // 9부터 1까지 반복
+        for (int j = 1; j <= i; j++) {  // 1부터 i까지 숫자를 출력
+            printf("%d ", j);
+        }
+        printf("\n");                   // 각 줄의 끝에서 줄바꿈
+    }
+    return 0;
+}
+```
+위 코드는 `show` 프로그램을 실행하면 `1`부터 시작하여 줄마다 숫자가 하나씩 줄어드는 패턴으로 출력됩니다.
+
+### 2. `upper.c`
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+void strupper(char str[]) {  // 문자열을 모두 대문자로 변환하는 함수
+    for (int i = 0; str[i] != '\0'; i++) {
+        str[i] = toupper(str[i]);  // 각 문자를 대문자로 변경
+    }
+}
+
+int main() {
+    char str[] = "hello, world!";
+    strupper(str);              // 문자열을 대문자로 변환
+    printf("%s\n", str);        // 변환된 문자열을 출력
+    return 0;
+}
+```
+위 코드는 `upper` 프로그램을 실행하면 문자열 `HELLO, WORLD!`가 출력됩니다.
+
+### 3. `count.c`
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int count_words(FILE *file) {
+    int count = 0;
+    char prev = ' ';
+    char curr;
+    
+    while ((curr = fgetc(file)) != EOF) {
+        if (isspace(curr) && !isspace(prev)) {  // 이전 문자가 공백이 아니고, 현재 문자가 공백일 때 단어 개수 증가
+            count++;
+        }
+        prev = curr;
+    }
+    if (!isspace(prev)) count++;  // 마지막 단어를 고려
+    return count;
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    FILE *file = fopen(argv[1], "r");
+    if (!file) {
+        perror("파일을 열 수 없습니다");
+        return 1;
+    }
+
+    int words = count_words(file);
+    printf("%d\n", words);
+    
+    fclose(file);
+    return 0;
+}
+```
+위 코드는 `count` 프로그램을 실행하면 지정된 텍스트 파일의 단어 수가 출력됩니다.
+
+### 4. `myrm.c`
+```c
+#include <stdio.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>...\n", argv[0]);
+        return 1;
+    }
+
+    for (int i = 1; i < argc; i++) {
+        if (remove(argv[i]) == 0) {
+            printf("'%s' 파일이 삭제되었습니다.\n", argv[i]);
+        } else {
+            perror(argv[i]);
+        }
+    }
+    return 0;
+}
+```
+위 코드는 `myrm` 프로그램을 실행하면 명령줄 인자로 지정된 파일들을 삭제하며, 삭제 여부를 출력합니다. `*.c` 파일은 삭제하지 않도록 주의합니다.
+
+### 5. `size.c`
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 크기>\n", argv[0]);
+        return 1;
+    }
+
+    long min_size = atol(argv[1]);
+    struct dirent *entry;
+    struct stat file_stat;
+
+    DIR *dir = opendir(".");
+    if (!dir) {
+        perror("디렉토리를 열 수 없습니다");
+        return 1;
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (stat(entry->d_name, &file_stat) == 0 && S_ISREG(file_stat.st_mode)) {
+            if (file_stat.st_size >= min_size) {
+                printf("%s\n", entry->d_name);  // 파일 크기가 조건에 맞으면 출력
+            }
+        }
+    }
+
+    closedir(dir);
+    return 0;
+}
+```
+위 코드는 `size` 프로그램을 실행하면 현재 디렉토리에서 지정된 크기 이상의 파일들을 출력합니다. 
+
+각 코드에서 컴파일 후 실행하여 문제의 요구 사항대로 동작하는지 확인해 보시기 바랍니다.
+------------------------------------------------------------------------------
+예상 문제
+알겠습니다! 기본 시스템 콜을 기반으로 조금 더 응용적인 문제 5개를 만들어 보겠습니다. 이 문제들은 파일과 디렉토리 조작에 약간 더 고급 기능을 추가해 봤습니다.
+
+---
+
+### 문제 1: 다중 파일 복사 (`mycpdir`)
+주어진 디렉토리 내 모든 파일을 대상 디렉토리로 복사하는 프로그램 `mycpdir`을 작성하시오. 소스 파일은 `mycpdir.c`로 하고, 첫 번째 인자로 원본 디렉토리 경로, 두 번째 인자로 대상 디렉토리 경로를 받으며 `opendir`, `readdir`, `stat`, `open`, `read`, `write`, `mkdir` 등의 시스템 콜을 활용하여 구현할 것. 디렉토리 구조가 복사 대상에 그대로 유지되어야 합니다.
+
+**실행 예시:**
+```bash
+$ ./mycpdir source_dir destination_dir
+```
+
+---
+
+### 문제 2: 로그 모니터링 (`mylogwatch`)
+주어진 텍스트 파일(로그 파일)의 변화를 실시간으로 감지하고 새로운 내용이 추가될 때마다 그 내용을 출력하는 프로그램 `mylogwatch`를 작성하시오. 소스 파일은 `mylogwatch.c`로 하고, `open`, `lseek`, `read` 등의 시스템 콜을 사용하여 구현할 것. 
+
+**실행 예시:**
+```bash
+$ ./mylogwatch log.txt
+(New log entries will be printed as they are written to log.txt)
+```
+
+---
+
+### 문제 3: 파일 병합 (`mymerge`)
+여러 개의 텍스트 파일을 하나의 파일로 병합하는 프로그램 `mymerge`를 작성하시오. 소스 파일은 `mymerge.c`로 하고, 인자로 주어진 파일들을 차례대로 읽어 하나의 출력 파일에 기록하며, 파일의 각 내용이 시작될 때 파일명을 구분선으로 표시할 것. `open`, `read`, `write` 시스템 콜을 활용하여 구현할 것.
+
+**실행 예시:**
+```bash
+$ ./mymerge output.txt file1.txt file2.txt file3.txt
+(output.txt에 병합된 결과가 저장됨)
+```
+
+---
+
+### 문제 4: 접근 권한 변경 (`mychmod`)
+명령줄 인자로 주어진 파일들의 접근 권한을 모두 755로 변경하는 프로그램 `mychmod`를 작성하시오. 소스 파일은 `mychmod.c`로 하고, `chmod`, `stat`, `opendir`, `readdir` 시스템 콜을 활용하여 구현할 것. 인자로 디렉토리가 주어지면, 해당 디렉토리 내부의 모든 파일에 대해 재귀적으로 권한을 변경해야 합니다.
+
+**실행 예시:**
+```bash
+$ ./mychmod dir_or_file1 dir_or_file2 ...
+```
+
+---
+
+### 문제 5: 디렉토리 용량 계산 (`mydu`)
+주어진 디렉토리의 전체 용량을 계산하여 출력하는 프로그램 `mydu`를 작성하시오. 소스 파일은 `mydu.c`로 하고, `opendir`, `readdir`, `stat` 등의 시스템 콜을 활용하여 구현할 것. 각 파일의 크기를 더하여 최종 디렉토리 크기를 출력하며, 하위 디렉토리도 재귀적으로 계산에 포함해야 합니다.
+
+**실행 예시:**
+```bash
+$ ./mydu target_directory
+Total size: 123456 bytes
+```
+
+---
+
+그럼 각 문제에 대한 예시 풀이를 제공하겠습니다. 이 풀이들은 응용적인 시스템 콜 활용에 중점을 두고 있습니다.
+
+---
+
+### 문제 1: `mycpdir.c` - 디렉토리 복사
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+
+void copy_file(const char *src, const char *dest) {
+    int src_fd = open(src, O_RDONLY);
+    if (src_fd == -1) {
+        perror("원본 파일 열기 실패");
+        return;
+    }
+
+    int dest_fd = open(dest, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (dest_fd == -1) {
+        perror("대상 파일 열기 실패");
+        close(src_fd);
+        return;
+    }
+
+    char buffer[4096];
+    ssize_t bytes_read;
+    while ((bytes_read = read(src_fd, buffer, sizeof(buffer))) > 0) {
+        if (write(dest_fd, buffer, bytes_read) != bytes_read) {
+            perror("쓰기 실패");
+            break;
+        }
+    }
+
+    close(src_fd);
+    close(dest_fd);
+}
+
+void copy_directory(const char *src_dir, const char *dest_dir) {
+    mkdir(dest_dir, 0755);  // 대상 디렉토리 생성
+    DIR *dir = opendir(src_dir);
+    if (!dir) {
+        perror("디렉토리 열기 실패");
+        return;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+            continue;
+
+        char src_path[512], dest_path[512];
+        snprintf(src_path, sizeof(src_path), "%s/%s", src_dir, entry->d_name);
+        snprintf(dest_path, sizeof(dest_path), "%s/%s", dest_dir, entry->d_name);
+
+        struct stat entry_stat;
+        if (stat(src_path, &entry_stat) == -1) {
+            perror("파일 상태 확인 실패");
+            continue;
+        }
+
+        if (S_ISDIR(entry_stat.st_mode)) {
+            copy_directory(src_path, dest_path);
+        } else if (S_ISREG(entry_stat.st_mode)) {
+            copy_file(src_path, dest_path);
+        }
+    }
+
+    closedir(dir);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "사용법: %s <원본 디렉토리> <대상 디렉토리>\n", argv[0]);
+        return 1;
+    }
+
+    copy_directory(argv[1], argv[2]);
+    return 0;
+}
+```
+
+---
+
+### 문제 2: `mylogwatch.c` - 로그 파일 모니터링
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/stat.h>
+
+void watch_log(const char *filename) {
+    int fd = open(filename, O_RDONLY);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return;
+    }
+
+    lseek(fd, 0, SEEK_END);  // 파일 끝으로 이동
+
+    char buffer[256];
+    ssize_t bytes_read;
+
+    while (1) {
+        bytes_read = read(fd, buffer, sizeof(buffer) - 1);
+        if (bytes_read > 0) {
+            buffer[bytes_read] = '\0';
+            printf("%s", buffer);
+            fflush(stdout);
+        } else {
+            sleep(1);  // 새로운 데이터가 없으면 대기
+        }
+    }
+
+    close(fd);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <로그 파일>\n", argv[0]);
+        return 1;
+    }
+
+    watch_log(argv[1]);
+    return 0;
+}
+```
+
+---
+
+### 문제 3: `mymerge.c` - 파일 병합
+
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+void merge_files(const char *output, int file_count, char *files[]) {
+    int output_fd = open(output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (output_fd == -1) {
+        perror("출력 파일 열기 실패");
+        return;
+    }
+
+    char buffer[4096];
+    for (int i = 0; i < file_count; i++) {
+        int input_fd = open(files[i], O_RDONLY);
+        if (input_fd == -1) {
+            perror("입력 파일 열기 실패");
+            continue;
+        }
+
+        dprintf(output_fd, "==== %s ====\n", files[i]);
+        
+        ssize_t bytes_read;
+        while ((bytes_read = read(input_fd, buffer, sizeof(buffer))) > 0) {
+            write(output_fd, buffer, bytes_read);
+        }
+
+        close(input_fd);
+    }
+
+    close(output_fd);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        fprintf(stderr, "사용법: %s <출력 파일> <파일1> <파일2> ...\n", argv[0]);
+        return 1;
+    }
+
+    merge_files(argv[1], argc - 2, &argv[2]);
+    return 0;
+}
+```
+
+---
+
+### 문제 4: `mychmod.c` - 접근 권한 변경
+
+```c
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <dirent.h>
+#include <string.h>
+
+void change_permissions(const char *path) {
+    struct stat path_stat;
+    if (stat(path, &path_stat) == -1) {
+        perror("파일 상태 확인 실패");
+        return;
+    }
+
+    if (S_ISDIR(path_stat.st_mode)) {
+        DIR *dir = opendir(path);
+        if (!dir) {
+            perror("디렉토리 열기 실패");
+            return;
+        }
+
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != NULL) {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            char new_path[512];
+            snprintf(new_path, sizeof(new_path), "%s/%s", path, entry->d_name);
+            change_permissions(new_path);
+        }
+
+        closedir(dir);
+    } else if (S_ISREG(path_stat.st_mode)) {
+        if (chmod(path, 0755) == -1) {
+            perror("권한 변경 실패");
+        }
+    }
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "사용법: %s <파일 또는 디렉토리>\n", argv[0]);
+        return 1;
+    }
+
+    for (int i = 1; i < argc; i++) {
+        change_permissions(argv[i]);
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 5: `mydu.c` - 디렉토리 용량 계산
+
+```c
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <dirent.h>
+#include <string.h>
+
+long calculate_directory_size(const char *path) {
+    struct stat path_stat;
+    if (stat(path, &path_stat) == -1) {
+        perror("파일 상태 확인 실패");
+        return 0;
+    }
+
+    long total_size = 0;
+    
+    if (S_ISDIR(path_stat.st_mode)) {
+        DIR *dir = opendir(path);
+        if (!dir) {
+            perror("디렉토리 열기 실패");
+            return 0;
+        }
+
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != NULL) {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            char new_path[512];
+            snprintf(new_path, sizeof(new_path), "%s/%s", path, entry->d_name);
+            total_size += calculate_directory_size(new_path);
+        }
+
+        closedir(dir);
+    } else if (S_ISREG(path_stat.st_mode)) {
+        total_size += path_stat.st_size;
+    }
+
+    return total_size;
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <디렉토리 경로>\n", argv[0]);
+        return 1;
+    }
+
+    long total_size = calculate_directory_size(argv[1]);
+    printf("총 크기: %ld bytes\n", total_size);
+    return 0;
+}
+```
+
+---
+
+위 코드는 각 문제의 요구 사항을 시스템 콜을 사용하여 해결하는 방법을 보여줍니다. 각 문제를 해결하면서 디렉토리와 파일을 다루는 방식, 재귀 호출 및 다양한 에러 처리를 실습해 보세요.
+
+
+----------------------------------------------------------------------------------
+간단한 systemcall 에 관한 예상문제들
+
+좋은 요청이네요! 시스템 콜을 활용하는 문제는 리눅스 시스템 프로그래밍 연습에 아주 유용하죠. 아래에 문제 5개를 준비했고, 각 문제에 대한 풀이도 직접 제공하겠습니다. 문제와 풀이 모두 시스템 콜 위주로 구성했습니다.
+
+---
+
+### 문제 1: 파일 읽기 (`mycat`)
+주어진 파일의 내용을 표준 출력으로 출력하는 프로그램 `mycat`을 작성하시오. 소스 파일은 `mycat.c`로 하고, `read`와 `write` 시스템 콜을 사용하여 구현할 것.
+
+**실행 예시:**
+```bash
+$ ./mycat example.txt
+Hello, world!
+This is a test file.
+```
+
+---
+
+### 문제 2: 파일 복사 (`mycp`)
+파일을 복사하는 프로그램 `mycp`를 작성하시오. 소스 파일은 `mycp.c`로 하고, 첫 번째 인자는 원본 파일, 두 번째 인자는 복사할 파일의 이름으로 설정하여 `open`, `read`, `write`, `close` 시스템 콜을 사용하여 구현할 것.
+
+**실행 예시:**
+```bash
+$ ./mycp source.txt destination.txt
+$ cat destination.txt
+(내용은 source.txt와 동일)
+```
+
+---
+
+### 문제 3: 디렉토리 목록 출력 (`myls`)
+현재 디렉토리의 파일과 디렉토리 목록을 출력하는 프로그램 `myls`를 작성하시오. 소스 파일은 `myls.c`로 하고, `opendir`, `readdir`, `closedir` 시스템 콜을 사용하여 구현할 것.
+
+**실행 예시:**
+```bash
+$ ./myls
+file1.txt
+file2.txt
+mydir/
+```
+
+---
+
+### 문제 4: 파일 정보 출력 (`myinfo`)
+주어진 파일의 크기, 마지막 수정 시간, 그리고 파일 유형을 출력하는 프로그램 `myinfo`를 작성하시오. 소스 파일은 `myinfo.c`로 하고, `stat` 시스템 콜을 사용하여 구현할 것.
+
+**실행 예시:**
+```bash
+$ ./myinfo example.txt
+크기: 1234 bytes
+마지막 수정 시간: 2024-11-03 12:34:56
+파일 유형: 일반 파일
+```
+
+---
+
+### 문제 5: 심볼릭 링크 생성 (`mylink`)
+원본 파일을 가리키는 심볼릭 링크를 생성하는 프로그램 `mylink`를 작성하시오. 소스 파일은 `mylink.c`로 하고, 첫 번째 인자는 원본 파일, 두 번째 인자는 심볼릭 링크 이름으로 설정하여 `symlink` 시스템 콜을 사용하여 구현할 것.
+
+**실행 예시:**
+```bash
+$ ./mylink source.txt link.txt
+$ ls -l link.txt
+lrwxrwxrwx 1 user user 10 Nov  3 12:34 link.txt -> source.txt
+```
+
+---
+
+각 문제에 대한 풀이를 이어서 제공하겠습니다.
+
+---
+
+### 문제 1: `mycat.c` 풀이
+
+```c
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define BUFFER_SIZE 1024
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        write(STDERR_FILENO, "사용법: ./mycat <파일 이름>\n", 28);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_RDONLY);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    char buffer[BUFFER_SIZE];
+    ssize_t bytes_read;
+    while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0) {
+        write(STDOUT_FILENO, buffer, bytes_read);
+    }
+
+    if (bytes_read == -1) {
+        perror("파일 읽기 실패");
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 2: `mycp.c` 풀이
+
+```c
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define BUFFER_SIZE 1024
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        write(STDERR_FILENO, "사용법: ./mycp <원본 파일> <복사 파일>\n", 39);
+        return 1;
+    }
+
+    int src_fd = open(argv[1], O_RDONLY);
+    if (src_fd == -1) {
+        perror("원본 파일 열기 실패");
+        return 1;
+    }
+
+    int dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (dest_fd == -1) {
+        perror("복사 파일 생성 실패");
+        close(src_fd);
+        return 1;
+    }
+
+    char buffer[BUFFER_SIZE];
+    ssize_t bytes_read;
+    while ((bytes_read = read(src_fd, buffer, BUFFER_SIZE)) > 0) {
+        if (write(dest_fd, buffer, bytes_read) != bytes_read) {
+            perror("파일 쓰기 실패");
+            close(src_fd);
+            close(dest_fd);
+            return 1;
+        }
+    }
+
+    close(src_fd);
+    close(dest_fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 3: `myls.c` 풀이
+
+```c
+#include <sys/types.h>
+#include <dirent.h>
+#include <stdio.h>
+
+int main() {
+    DIR *dir = opendir(".");
+    if (!dir) {
+        perror("디렉토리 열기 실패");
+        return 1;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        printf("%s\n", entry->d_name);
+    }
+
+    closedir(dir);
+    return 0;
+}
+```
+
+---
+
+### 문제 4: `myinfo.c` 풀이
+
+```c
+#include <sys/stat.h>
+#include <stdio.h>
+#include <time.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: ./myinfo <파일 이름>\n");
+        return 1;
+    }
+
+    struct stat file_stat;
+    if (stat(argv[1], &file_stat) == -1) {
+        perror("파일 정보 가져오기 실패");
+        return 1;
+    }
+
+    printf("크기: %ld bytes\n", file_stat.st_size);
+    printf("마지막 수정 시간: %s", ctime(&file_stat.st_mtime));
+    printf("파일 유형: ");
+    
+    if (S_ISREG(file_stat.st_mode)) {
+        printf("일반 파일\n");
+    } else if (S_ISDIR(file_stat.st_mode)) {
+        printf("디렉토리\n");
+    } else {
+        printf("기타 유형\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 5: `mylink.c` 풀이
+
+```c
+#include <unistd.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "사용법: ./mylink <원본 파일> <링크 이름>\n");
+        return 1;
+    }
+
+    if (symlink(argv[1], argv[2]) == -1) {
+        perror("심볼릭 링크 생성 실패");
+        return 1;
+    }
+
+    printf("'%s'에 대한 링크 '%s'가 생성되었습니다.\n", argv[1], argv[2]);
+    return 0;
+}
+```
+
+---
+
+이제 각 프로그램을 실행해 보시면서 시스템 콜의 동작을 확인해 보세요. 각 문제는 시스템 콜의 활용과 에러 핸들링을 익히는 데도 도움이 됩니다!
+
+
+--------------------------------------------------------------------------
+그냥 문제들 난이도 하
+
+
+비슷한 난이도의 C 언어 문제 5개와 함께 각 문제에 대한 풀이를 제공하겠습니다.
+
+### 문제 1: 삼각형 출력
+다음과 같은 삼각형 모양을 출력하는 프로그램 `triangle.c`을 작성하세요.
+
+```plaintext
+*
+**
+***
+****
+*****
+```
+
+#### 풀이:
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 5; i++) {         // 5줄 출력
+        for (int j = 1; j <= i; j++) {     // 줄마다 '*'를 i개 출력
+            printf("*");
+        }
+        printf("\n");                      // 줄 끝에서 줄바꿈
+    }
+    return 0;
+}
+```
+
+### 문제 2: 팩토리얼 계산 함수 작성
+정수 `n`을 입력받아 `n!`을 계산하고 출력하는 `factorial.c`을 작성하세요. `int factorial(int n)` 함수를 작성해야 합니다.
+
+#### 풀이:
+```c
+#include <stdio.h>
+
+int factorial(int n) {       // 팩토리얼 계산 함수
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+int main() {
+    int n;
+    printf("정수를 입력하세요: ");
+    scanf("%d", &n);
+    printf("%d! = %d\n", n, factorial(n));
+    return 0;
+}
+```
+
+### 문제 3: 피보나치 수열
+피보나치 수열의 `n`번째 항을 계산하고 출력하는 `fibonacci.c`을 작성하세요. `int fibonacci(int n)` 함수를 작성하세요.
+
+#### 풀이:
+```c
+#include <stdio.h>
+
+int fibonacci(int n) {   // 피보나치 수열 계산 함수
+    if (n <= 1) return n;
+    int a = 0, b = 1, result;
+    for (int i = 2; i <= n; i++) {
+        result = a + b;
+        a = b;
+        b = result;
+    }
+    return result;
+}
+
+int main() {
+    int n;
+    printf("정수를 입력하세요: ");
+    scanf("%d", &n);
+    printf("피보나치 수열 %d번째 항: %d\n", n, fibonacci(n));
+    return 0;
+}
+```
+
+### 문제 4: 평균 구하기
+사용자로부터 5개의 정수를 입력받아 평균을 계산하고 출력하는 `average.c`을 작성하세요.
+
+#### 풀이:
+```c
+#include <stdio.h>
+
+int main() {
+    int numbers[5];
+    int sum = 0;
+
+    printf("5개의 정수를 입력하세요:\n");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &numbers[i]);       // 5개의 정수 입력
+        sum += numbers[i];              // 합계 누적
+    }
+
+    double average = sum / 5.0;         // 평균 계산
+    printf("평균: %.2f\n", average);
+    return 0;
+}
+```
+
+### 문제 5: 소수 판별
+정수를 입력받아 그 수가 소수인지 아닌지 판별하는 `is_prime.c` 프로그램을 작성하세요. `int is_prime(int n)` 함수를 작성하고, 소수일 경우 `1`, 아닐 경우 `0`을 반환하세요.
+
+#### 풀이:
+```c
+#include <stdio.h>
+
+int is_prime(int n) {        // 소수 판별 함수
+    if (n <= 1) return 0;    // 1 이하의 수는 소수가 아님
+    for (int i = 2; i * i <= n; i++) {  // n의 제곱근까지만 확인
+        if (n % i == 0) return 0;       // 나누어 떨어지면 소수가 아님
+    }
+    return 1;                // 나누어 떨어지지 않으면 소수
+}
+
+int main() {
+    int n;
+    printf("정수를 입력하세요: ");
+    scanf("%d", &n);
+
+    if (is_prime(n)) {
+        printf("%d는 소수입니다.\n", n);
+    } else {
+        printf("%d는 소수가 아닙니다.\n", n);
+    }
+    return 0;
+}
+```
+
+이 문제들을 연습하시면서 C 언어의 기본적인 반복문, 조건문, 함수 작성 방법을 익히실 수 있을 겁니다.
+
+-----------------------------------------------------------
+옛날 기출
+사용자에게 10진수를 입력받아 2진수로 출력하는 프로그램 conv.c 작성
+#include <stdio.h>
+
+void convertToBinary(int n) {
+    if (n > 1) {
+        convertToBinary(n / 2);
+    }
+    printf("%d", n % 2);
+}
+
+int main() {
+    int num;
+    printf("Enter a decimal number: ");
+    scanf("%d", &num);
+    printf("Binary of %d is: ", num);
+    convertToBinary(num);
+    printf("\n");
+    return 0;
+}
+
+
+특정 단어를 포함하는 파일 라인의 번호와 내용을 출력하는 프로그램 mygrep.c 작성
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LINE_LENGTH 1024
+
+int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        printf("Usage: %s <word> <filename>\n", argv[0]);
+        return 1;
+    }
+
+    FILE *file = fopen(argv[2], "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    char line[MAX_LINE_LENGTH];
+    int lineNumber = 0;
+    while (fgets(line, MAX_LINE_LENGTH, file)) {
+        lineNumber++;
+        if (strstr(line, argv[1]) != NULL) {
+            printf("Line %d: %s", lineNumber, line);
+        }
+    }
+
+    fclose(file);
+    return 0;
+}
+
+
+현재 디렉토리에서 가장 최근에 생성된 파일의 이름을 출력하는 프로그램 new.c 작성
+
+#include <stdio.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <string.h>
+
+int main() {
+    struct dirent *entry;
+    struct stat fileStat;
+    char latestFile[256];
+    time_t latestTime = 0;
+
+    DIR *dp = opendir(".");
+    if (dp == NULL) {
+        perror("Error opening directory");
+        return 1;
+    }
+
+    while ((entry = readdir(dp))) {
+        stat(entry->d_name, &fileStat);
+        if (S_ISREG(fileStat.st_mode) && fileStat.st_mtime > latestTime) {
+            latestTime = fileStat.st_mtime;
+            strcpy(latestFile, entry->d_name);
+        }
+    }
+
+    closedir(dp);
+    printf("Most recently created file: %s\n", latestFile);
+    return 0;
+}
+
+
+스레드를 생성하고 각 스레드 ID의 합을 구해 출력하는 프로그램 thread.c 작성
+
+#include <stdio.h>
+#include <pthread.h>
+
+#define NUM_THREADS 5
+
+void *printID(void *id) {
+    pthread_t tid = pthread_self();
+    printf("Thread ID: %lu\n", tid);
+    pthread_exit((void *) tid);
+}
+
+int main() {
+    pthread_t threads[NUM_THREADS];
+    void *status;
+    unsigned long sum = 0;
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_create(&threads[i], NULL, printID, (void *)(long)i);
+    }
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], &status);
+        sum += (unsigned long)status;
+    }
+
+    printf("Sum of thread IDs: %lu\n", sum);
+    return 0;
+}
+
+
+
+주어진 시간 후에 알람 메시지를 출력하는 프로그램 alarm.c 작성
+
+#include <stdio.h>
+#include <pthread.h>
+
+#define NUM_THREADS 5
+
+void *printID(void *id) {
+    pthread_t tid = pthread_self();
+    printf("Thread ID: %lu\n", tid);
+    pthread_exit((void *) tid);
+}
+
+int main() {
+    pthread_t threads[NUM_THREADS];
+    void *status;
+    unsigned long sum = 0;
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_create(&threads[i], NULL, printID, (void *)(long)i);
+    }
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], &status);
+        sum += (unsigned long)status;
+    }
+
+    printf("Sum of thread IDs: %lu\n", sum);
+    return 0;
+}
+
+
+알겠습니다! 주어진 시스템 콜과 라이브러리 함수들을 기반으로, 파일 및 디렉토리, 프로세스와 쓰레드 관련 기능을 활용하는 10가지 문제를 준비했습니다. 각 문제에 대한 설명과 예시 코드를 함께 제공하겠습니다.
+
+---
+
+### 문제 1: 파일의 특정 위치에 쓰기 (`mywrite`)
+
+주어진 파일에 대해 사용자가 지정한 위치부터 데이터를 쓰는 프로그램 `mywrite`를 작성하세요. 파일 이름, 쓰기 시작 위치, 그리고 데이터를 인자로 받습니다. `open`, `lseek`, `write`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./mywrite file.txt 20 "Hello, World!"
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 4) {
+        fprintf(stderr, "사용법: %s <파일 이름> <위치> <데이터>\n", argv[0]);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_WRONLY);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    off_t position = atoi(argv[2]);
+    if (lseek(fd, position, SEEK_SET) == -1) {
+        perror("파일 위치 이동 실패");
+        close(fd);
+        return 1;
+    }
+
+    if (write(fd, argv[3], strlen(argv[3])) == -1) {
+        perror("쓰기 실패");
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 2: 파일의 메타데이터 확인 (`mystat`)
+
+지정된 파일의 메타데이터(크기, 소유자, 접근 권한 등)를 확인하는 프로그램 `mystat`을 작성하세요. `stat` 시스템 콜을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./mystat file.txt
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <grp.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    struct stat file_stat;
+    if (stat(argv[1], &file_stat) == -1) {
+        perror("stat 실패");
+        return 1;
+    }
+
+    printf("파일 크기: %ld bytes\n", file_stat.st_size);
+    printf("소유자: %s\n", getpwuid(file_stat.st_uid)->pw_name);
+    printf("그룹: %s\n", getgrgid(file_stat.st_gid)->gr_name);
+    printf("권한: %o\n", file_stat.st_mode & 0777);
+
+    return 0;
+}
+```
+
+---
+
+### 문제 3: 파일 삭제 (`myremove`)
+
+여러 파일을 인자로 받아 삭제하는 프로그램 `myremove`를 작성하세요. `remove` 시스템 콜을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./myremove file1.txt file2.txt
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "사용법: %s <파일1> <파일2> ...\n", argv[0]);
+        return 1;
+    }
+
+    for (int i = 1; i < argc; i++) {
+        if (remove(argv[i]) == -1) {
+            perror("파일 삭제 실패");
+        }
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 4: 파일 복사 (`mycopy`)
+
+파일을 읽고 복사하는 프로그램 `mycopy`를 작성하세요. 파일의 내용을 읽고 새 파일에 씁니다. `open`, `read`, `write`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./mycopy source.txt destination.txt
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "사용법: %s <원본 파일> <대상 파일>\n", argv[0]);
+        return 1;
+    }
+
+    int src_fd = open(argv[1], O_RDONLY);
+    if (src_fd == -1) {
+        perror("원본 파일 열기 실패");
+        return 1;
+    }
+
+    int dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (dest_fd == -1) {
+        perror("대상 파일 열기 실패");
+        close(src_fd);
+        return 1;
+    }
+
+    char buffer[4096];
+    ssize_t bytes_read;
+    while ((bytes_read = read(src_fd, buffer, sizeof(buffer))) > 0) {
+        write(dest_fd, buffer, bytes_read);
+    }
+
+    close(src_fd);
+    close(dest_fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 5: 하위 디렉토리 내 파일 개수 세기 (`mycount`)
+
+주어진 디렉토리 내의 파일 수를 세는 프로그램 `mycount`를 작성하세요. `opendir`, `readdir`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./mycount directory_name
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <dirent.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <디렉토리 이름>\n", argv[0]);
+        return 1;
+    }
+
+    DIR *dir = opendir(argv[1]);
+    if (!dir) {
+        perror("디렉토리 열기 실패");
+        return 1;
+    }
+
+    int file_count = 0;
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_REG) {  // 일반 파일만 세기
+            file_count++;
+        }
+    }
+
+    closedir(dir);
+    printf("파일 개수: %d\n", file_count);
+    return 0;
+}
+```
+
+---
+
+### 문제 6: 특정 파일이 존재하는지 확인 (`myfind`)
+
+주어진 파일이 존재하는지 확인하는 프로그램 `myfind`를 작성하세요. `access` 시스템 콜을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./myfind file.txt
+존재합니다.
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    if (access(argv[1], F_OK) == 0) {
+        printf("존재합니다.\n");
+    } else {
+        perror("존재하지 않음");
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 7: 환경 변수 설정 (`myenv`)
+
+주어진 환경 변수를 설정하는 프로그램 `myenv`를 작성하세요. `putenv`, `getenv`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./myenv VAR_NAME "Hello"
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "사용법: %s <변수 이름> <값>\n", argv[0]);
+        return 1;
+    }
+
+    char env[100];
+    snprintf(env, sizeof(env), "%s=%s", argv[1], argv[2]);
+
+    putenv(env);
+    printf("%s=%s\n", argv[1], getenv(argv[1]));
+
+    return 0;
+}
+```
+
+---
+
+각 문제는 다양한 시스템 콜을 사용해 실습할 수 있도록 구성했습니다. 나머지 문제에 대한 풀이가 필요하시다면 알려주세요!
+
+
+알겠습니다! 이전 문제와 비슷한 난이도에서 시스템 콜을 활용하는 문제 3개를 추가로 작성해드리겠습니다.
+
+---
+
+### 문제 8: 파일 락 설정하기 (`mylock`)
+
+지정된 파일에 대해 잠금을 설정하는 프로그램 `mylock`을 작성하세요. 파일의 특정 부분에 대해 읽기 또는 쓰기 잠금을 설정하거나 해제할 수 있습니다. `fcntl`을 사용하여 파일 잠금을 설정하세요.
+
+**실행 예시:**
+```bash
+$ ./mylock file.txt 0 50 rlock
+$ ./mylock file.txt 0 50 unlock
+```
+
+**설명:**
+- 첫 번째 인자는 파일 이름입니다.
+- 두 번째와 세 번째 인자는 잠금을 설정할 파일 내 오프셋과 길이입니다.
+- 네 번째 인자는 잠금 모드로, `rlock`은 읽기 잠금, `wlock`은 쓰기 잠금, `unlock`은 잠금 해제를 의미합니다.
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 5) {
+        fprintf(stderr, "사용법: %s <파일 이름> <오프셋> <길이> <rlock|wlock|unlock>\n", argv[0]);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_RDWR);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    struct flock lock;
+    lock.l_type = (strcmp(argv[4], "rlock") == 0) ? F_RDLCK : (strcmp(argv[4], "wlock") == 0) ? F_WRLCK : F_UNLCK;
+    lock.l_whence = SEEK_SET;
+    lock.l_start = atoi(argv[2]);
+    lock.l_len = atoi(argv[3]);
+
+    if (fcntl(fd, F_SETLK, &lock) == -1) {
+        perror("잠금 설정 실패");
+        close(fd);
+        return 1;
+    }
+
+    printf("잠금 설정됨: %s\n", argv[4]);
+    close(fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 9: 자식 프로세스 생성 및 종료 상태 확인 (`myfork`)
+
+자식 프로세스를 생성하고, 자식이 종료할 때까지 기다린 후 자식의 종료 상태를 출력하는 프로그램 `myfork`를 작성하세요. `fork`, `wait`, `exit` 시스템 콜을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./myfork
+자식 프로세스 생성됨: PID 12345
+자식 프로세스 종료됨: 상태 0
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main() {
+    pid_t pid = fork();
+    if (pid == -1) {
+        perror("fork 실패");
+        return 1;
+    }
+
+    if (pid == 0) {
+        // 자식 프로세스
+        printf("자식 프로세스 실행 중: PID %d\n", getpid());
+        exit(0);  // 정상 종료
+    } else {
+        // 부모 프로세스
+        printf("자식 프로세스 생성됨: PID %d\n", pid);
+        int status;
+        wait(&status);  // 자식 프로세스 종료 기다림
+        if (WIFEXITED(status)) {
+            printf("자식 프로세스 종료됨: 상태 %d\n", WEXITSTATUS(status));
+        }
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 10: 현재 디렉토리 내 지정된 확장자 파일 찾기 (`findext`)
+
+현재 디렉토리 내에서 주어진 확장자를 가진 파일들을 모두 출력하는 프로그램 `findext`를 작성하세요. `opendir`, `readdir`을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./findext .txt
+file1.txt
+file2.txt
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <string.h>
+#include <dirent.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <확장자>\n", argv[0]);
+        return 1;
+    }
+
+    DIR *dir = opendir(".");
+    if (!dir) {
+        perror("디렉토리 열기 실패");
+        return 1;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        // 파일 이름이 주어진 확장자로 끝나는지 확인
+        if (strstr(entry->d_name, argv[1]) != NULL && 
+            strcmp(entry->d_name + strlen(entry->d_name) - strlen(argv[1]), argv[1]) == 0) {
+            printf("%s\n", entry->d_name);
+        }
+    }
+
+    closedir(dir);
+    return 0;
+}
+```
+
+---
+
+알겠습니다! 이번에는 시스템 콜과 C 라이브러리 함수들을 응용하여 좀 더 다양한 문제를 준비해보겠습니다.
+
+---
+
+### 문제 11: 디렉토리 생성 및 권한 설정 (`mymkdir`)
+
+지정된 이름과 권한을 가진 디렉토리를 생성하는 프로그램 `mymkdir`를 작성하세요. `mkdir`과 `chmod` 시스템 콜을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./mymkdir newdir 0755
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "사용법: %s <디렉토리 이름> <권한(8진수)>\n", argv[0]);
+        return 1;
+    }
+
+    if (mkdir(argv[1], 0755) == -1) {
+        perror("디렉토리 생성 실패");
+        return 1;
+    }
+
+    mode_t mode = strtol(argv[2], NULL, 8);
+    if (chmod(argv[1], mode) == -1) {
+        perror("권한 설정 실패");
+        return 1;
+    }
+
+    printf("디렉토리 %s 생성 완료, 권한 %o\n", argv[1], mode);
+    return 0;
+}
+```
+
+---
+
+### 문제 12: 프로세스 정보 출력 (`myproc`)
+
+현재 프로세스의 ID, 부모 프로세스의 ID, 사용자 ID, 그룹 ID를 출력하는 프로그램 `myproc`을 작성하세요. `getpid`, `getppid`, `getuid`, `getgid`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./myproc
+프로세스 ID: 1234
+부모 프로세스 ID: 5678
+사용자 ID: 1000
+그룹 ID: 1000
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    printf("프로세스 ID: %d\n", getpid());
+    printf("부모 프로세스 ID: %d\n", getppid());
+    printf("사용자 ID: %d\n", getuid());
+    printf("그룹 ID: %d\n", getgid());
+
+    return 0;
+}
+```
+
+---
+
+### 문제 13: 파일 크기 확인 및 자동 삭제 (`autodel`)
+
+주어진 파일의 크기가 일정 크기(바이트 단위) 이상일 경우 해당 파일을 삭제하는 프로그램 `autodel`을 작성하세요. `stat`과 `remove` 시스템 콜을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./autodel file.txt 1000
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "사용법: %s <파일 이름> <최대 크기(바이트)>\n", argv[0]);
+        return 1;
+    }
+
+    struct stat st;
+    if (stat(argv[1], &st) == -1) {
+        perror("파일 정보 가져오기 실패");
+        return 1;
+    }
+
+    long max_size = atol(argv[2]);
+    if (st.st_size > max_size) {
+        if (remove(argv[1]) == -1) {
+            perror("파일 삭제 실패");
+            return 1;
+        }
+        printf("파일 %s이(가) 크기 초과로 삭제됨\n", argv[1]);
+    } else {
+        printf("파일 크기 %ld bytes - 삭제되지 않음\n", st.st_size);
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 14: 현재 디렉토리에서 심볼릭 링크 찾기 (`findsymlink`)
+
+현재 디렉토리 내에서 모든 심볼릭 링크를 찾는 프로그램 `findsymlink`를 작성하세요. `opendir`, `readdir`, `lstat`을 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./findsymlink
+link1 -> /path/to/target
+link2 -> /another/path
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
+int main() {
+    DIR *dir = opendir(".");
+    if (!dir) {
+        perror("디렉토리 열기 실패");
+        return 1;
+    }
+
+    struct dirent *entry;
+    struct stat st;
+    while ((entry = readdir(dir)) != NULL) {
+        if (lstat(entry->d_name, &st) == -1) {
+            perror("파일 정보 가져오기 실패");
+            continue;
+        }
+        if (S_ISLNK(st.st_mode)) {
+            printf("%s는 심볼릭 링크입니다.\n", entry->d_name);
+        }
+    }
+
+    closedir(dir);
+    return 0;
+}
+```
+
+---
+
+### 문제 15: 파일 읽기 및 개행 제거 (`removeline`)
+
+주어진 파일에서 개행 문자를 모두 제거하여 출력하는 프로그램 `removeline`을 작성하세요. `read`와 `write`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./removeline file.txt
+HelloWorldThisIsAnExample
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_RDONLY);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    char buffer[1024];
+    ssize_t bytes_read;
+    while ((bytes_read = read(fd, buffer, sizeof(buffer))) > 0) {
+        for (ssize_t i = 0; i < bytes_read; i++) {
+            if (buffer[i] != '\n') {
+                write(STDOUT_FILENO, &buffer[i], 1);
+            }
+        }
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 16: 텍스트 파일의 마지막 줄만 출력하기 (`lastline`)
+
+지정된 파일의 마지막 줄만 출력하는 프로그램 `lastline`을 작성하세요. `lseek`, `read`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./lastline file.txt
+마지막 줄입니다.
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_RDONLY);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    off_t file_size = lseek(fd, 0, SEEK_END);
+    if (file_size == -1) {
+        perror("파일 크기 가져오기 실패");
+        close(fd);
+        return 1;
+    }
+
+    off_t pos = file_size - 1;
+    char c;
+    while (pos > 0) {
+        lseek(fd, pos--, SEEK_SET);
+        read(fd, &c, 1);
+        if (c == '\n') break;
+    }
+
+    while (read(fd, &c, 1) > 0) {
+        write(STDOUT_FILENO, &c, 1);
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 17: 부모 프로세스와 자식 프로세스 간 메시지 전달 (`mymsg`)
+
+부모 프로세스가 자식 프로세스를 생성하고, 부모가 자식에게 메시지를 보내고, 자식이 응답하는 프로그램 `mymsg`를 작성하세요. `pipe`, `fork`, `write`, `read`를 사용하세요.
+
+**실행 예시:**
+```bash
+$ ./mymsg
+부모: "Hello, Child"
+자식: "Hello, Parent"
+```
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+int main() {
+    int fd1[2], fd2[2];
+    pipe(fd1); pipe(fd2);
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        char parent_msg[20];
+        read(fd1[0], parent_msg, sizeof(parent_msg));
+        printf("자식: %s\n", parent_msg);
+
+        char child_msg[] = "Hello, Parent";
+        write(fd2[1], child_msg, strlen(child_msg) + 1);
+    } else {
+        char parent_msg[] = "Hello, Child";
+        write(fd1[1], parent_msg, strlen(parent_msg) + 1);
+
+        char child_msg[20];
+        read(fd2[0], child_msg, sizeof(child_msg));
+        printf("부모: %s\n", child_msg);
+    }
+
+    return 0;
+}
+```
+
+---
+
+아래는 문제 18, 19, 20의 해결 코드입니다.
+
+---
+
+### 문제 18: 현재 디렉토리의 파일 이름을 알파벳 순으로 정렬하여 출력하기 (`sortdir`)
+
+현재 디렉토리의 파일 이름을 알파벳 순서로 정렬하여 출력하는 프로그램 `sortdir`을 작성하세요. `opendir`, `readdir`, `qsort`를 사용하세요.
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <string.h>
+
+int compare(const void *a, const void *b) {
+    return strcmp(*(const char **)a, *(const char **)b);
+}
+
+int main() {
+    DIR *dir = opendir(".");
+    if (!dir) {
+        perror("디렉토리 열기 실패");
+        return 1;
+    }
+
+    struct dirent *entry;
+    char *filenames[100];
+    int count = 0;
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_REG) {  // 일반 파일만 포함
+            filenames[count] = strdup(entry->d_name);
+            count++;
+        }
+    }
+    closedir(dir);
+
+    qsort(filenames, count, sizeof(char *), compare);
+
+    for (int i = 0; i < count; i++) {
+        printf("%s\n", filenames[i]);
+        free(filenames[i]);
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 문제 19: 지정한 파일의 앞 10줄만 출력하기 (`first10`)
+
+주어진 파일의 앞 10줄만 출력하는 프로그램 `first10`을 작성하세요. `read`와 `write`를 사용하세요.
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_RDONLY);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    char buffer;
+    int line_count = 0;
+
+    while (read(fd, &buffer, 1) > 0 && line_count < 10) {
+        write(STDOUT_FILENO, &buffer, 1);
+        if (buffer == '\n') {
+            line_count++;
+        }
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+---
+
+### 문제 20: 파일에 주어진 텍스트 추가하기 (`appendtext`)
+
+주어진 파일에 사용자로부터 입력받은 텍스트를 추가하는 프로그램 `appendtext`를 작성하세요. `open`, `write`를 사용하세요.
+
+#### 예시 코드
+```c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "사용법: %s <파일 이름>\n", argv[0]);
+        return 1;
+    }
+
+    int fd = open(argv[1], O_WRONLY | O_APPEND);
+    if (fd == -1) {
+        perror("파일 열기 실패");
+        return 1;
+    }
+
+    char input[256];
+    printf("추가할 텍스트를 입력하세요: ");
+    fgets(input, sizeof(input), stdin);
+
+    write(fd, input, strlen(input));
+    close(fd);
+
+    printf("텍스트 추가 완료\n");
+    return 0;
+}
+```
+
+--- 
+
+이 코드들은 각각 `opendir`, `readdir`, `qsort`와 `read`, `write` 등을 활용하여 주어진 요구사항에 맞춰 구현한 예시입니다.
+
+자연수를 기준으로 `pow` 함수를 간단히 구현한 버전은 아래와 같습니다
+
+```c
+#include <stdio.h>
+
+// base^exponent 계산 함수 (자연수 지수만 사용)
+int my_pow(int base, unsigned int exponent) {
+    int result = 1;
+    for (unsigned int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+int main() {
+    int base;
+    unsigned int exponent;
+
+    printf("밑(base)을 입력하세요: ");
+    scanf("%d", &base);
+
+    printf("지수(exponent)를 입력하세요 (자연수): ");
+    scanf("%u", &exponent);
+
+    int result = my_pow(base, exponent);
+    printf("%d^%u = %d\n", base, exponent, result);
+
+    return 0;
+}
+
+```
+
