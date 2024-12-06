@@ -2,8 +2,7 @@
 #include "semlib.h"
  
  
-int
-semInit(key_t key)
+int semInit(key_t key)
 {
     int     semid;
 
@@ -15,8 +14,7 @@ semInit(key_t key)
     return semid;
 }
  
-int
-semInitValue(int semid, int value)
+int semInitValue(int semid, int value)
 {
     union semun {
             int     val;
@@ -31,8 +29,7 @@ semInitValue(int semid, int value)
     return semid;
 }
  
-int
-semWait(int semid)
+int semWait(int semid)
 {
     struct sembuf   semcmd;
  
@@ -47,8 +44,7 @@ semWait(int semid)
     return 0;
 }
  
-int
-semTryWait(int semid)
+int semTryWait(int semid)
 {
     struct sembuf   semcmd;
  
@@ -63,8 +59,7 @@ semTryWait(int semid)
     return 0;
 }
 
-int
-semPost(int semid)
+int semPost(int semid)
 {
     struct sembuf   semcmd;
  
@@ -79,8 +74,7 @@ semPost(int semid)
     return 0;
 }
 
-int
-semGetValue(int semid)
+int semGetValue(int semid)
 {
     union semun {
             int     val;
@@ -89,8 +83,7 @@ semGetValue(int semid)
     return semctl(semid, 0, GETVAL, dummy);
 }
  
-int
-semDestroy(int semid)
+int semDestroy(int semid)
 {
     union semun {
             int     val;
