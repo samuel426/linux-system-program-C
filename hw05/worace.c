@@ -64,7 +64,7 @@ int main()
 		CharAtaTime("output from child\n");
 	} 
 	else  {
-		wait(NULL);
+		wait(NULL); // wait를 통해 기다림
 		CharAtaTime("output from parent\n");
 	}
 }
